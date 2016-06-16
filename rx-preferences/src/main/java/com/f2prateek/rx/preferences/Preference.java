@@ -89,6 +89,20 @@ public final class Preference<T> {
     editor.apply();
   }
 
+  /**
+   * Change this preference's stored value to {@code value}. A value of {@code null} will delete the
+   * preference. Uses the supplied {@link android.content.SharedPreferences.Editor} and will not
+   * automatically {@link SharedPreferences.Editor#apply()} or
+   * {@link SharedPreferences.Editor#commit()} the value.
+   */
+  public void set(@Nullable T value, @NonNull SharedPreferences.Editor editor) {
+    if (value == null) {
+      editor.remove(key);
+    } else {
+      adapter.set(key, value, editor);
+    }
+  }
+
   /** Returns true if this preference has a stored value. */
   public boolean isSet() {
     return preferences.contains(key);
@@ -97,6 +111,16 @@ public final class Preference<T> {
   /** Delete the stored value for this preference, if any. */
   public void delete() {
     set(null);
+  }
+
+  /**
+   * Delete the stored value for this preference, if any. Uses the supplied
+   * {@link android.content.SharedPreferences.Editor} and will not automatically
+   * {@link SharedPreferences.Editor#apply()} or {@link SharedPreferences.Editor#commit()} the
+   * value.
+   */
+  public void delete(@NonNull SharedPreferences.Editor editor) {
+    set(null, editor);
   }
 
   /**
