@@ -55,6 +55,14 @@ public final class RxSharedPreferences {
     }).share();
   }
 
+  /**
+   * The underlying {@link SharedPreferences} object.
+   */
+  @NonNull
+  public SharedPreferences sharedPreferences() {
+    return preferences;
+  }
+
   /** Create a boolean preference for {@code key}. Default is {@code false}. */
   @CheckResult @NonNull
   public Preference<Boolean> getBoolean(@NonNull String key) {
